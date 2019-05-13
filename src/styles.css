@@ -1,5 +1,5 @@
 h1 {
-    color:red;
+    color:blue;
 }
 
 #container {
@@ -12,3 +12,15 @@ h1 {
     -webkit-border-radius: 20px;
     -moz-border-radius: 20px;
   }
+
+.tenPercent.selected {
+      background: red;
+  }
+
+.fifteenPercent.selected {
+    background: yellow;
+}
+
+.twentyPercent.selected {
+    background: green;
+}

@@ -2,35 +2,34 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Webpack Showcase</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <title>The Tip Calculator Showcase</title>
 </head>
 <body>
-    <div id="container">
-        <h1>The Tip Calculator</h1>
+    <div class="container">
+        <header>
+            <h1>The Tip Calculator</h1>
+        </header>
         <div>
-                $ <input type="number" id="userBill">
+                <ul class="list">
+                    $ <input type="number" id="userBill">
+                </ul>
         </div>
-    </br>
+        </br>
+        <div class ="btn-group" role="group">
+            <input class ="tenPercent" type="button" id="tenPercent" value="10%">
+            <input class ="fifteenPercent" type="button" id="fifteenPercent" value="15%">
+            <input class ="twentyPercent" type="button" id="twentyPercent" value="20%">
+        </div>
+        <div>You are tipping <span id="headerTip" type="text"></span></div>
         <div>
-            <input type="button" id="tenPercent" value="10%">
-            <input type="button" id="fifteenPercent" value="15%">
-            <input type="button" id="twentyPercent" value="20%">
+            <ul class="list-group">
+                <li class="list-group-item">Bill Amount: <span id="billAmount"> </li>
+                <li class="list-group-item">Tip Percentage: <span id="tipPercentage" type="text"></li>
+                <li class="list-group-item">Amount of tip: <span id="amountOfTip"></li>
+                <li class="list-group-item">Total to be Paid: <span id="totalPaid"></li>    
+            </ul>
         </div>
-        <h5>You are tipping <span id="headerTip" type="text"></span></h5>
-        <div>
-            Bill Amount: <span id="billAmount">
-        </div>
-        <div>    
-            Tip Percentage: <span id="tipPercentage" type="text">
-        </div>
-        <div>
-            Amount of tip: <span id="amountOfTip">
-        </div>
-        <div>
-            Total to be Paid: <span id="totalPaid">
-    </div>    
-    </list>
-        
     <div>
 </body>
 </html>
