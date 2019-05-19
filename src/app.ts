@@ -8,7 +8,6 @@ const userBill = document.getElementById('userBill') as HTMLInputElement;
 const billAmount = document.getElementById('billAmount') as HTMLInputElement;
 const tipPercentage = document.getElementById('tipPercentage') as HTMLInputElement;
 const headerTip = document.getElementById('headerTip') as HTMLInputElement;
-const billAmt = userBill.valueAsNumber;
 
 const amountOfTip = document.getElementById('amountOfTip');
 const totalPaid = document.getElementById('totalPaid');
@@ -21,51 +20,64 @@ const tenPercentSelected = document.getElementById('tenPercent') as HTMLDivEleme
 const fifteenPercentSelected = document.getElementById('fifteenPercent') as HTMLDivElement;
 const twentyPercentSelected = document.getElementById('twentyPercent') as HTMLDivElement;
 
+retrieveSavedButton();
 
-function doTenPercent() {
+function retrieveSavedButton() {
+
+    let savedTipButton = localStorage.getItem('tipButton');
+    
+    if (savedTipButton === '10') {
+        tenPercentSelected.classList.add('selected');
+    }
+
+    if (savedTipButton === '15') {
+        fifteenPercentSelected.classList.add('selected');
+    }
+
+    if (savedTipButton === '20') {
+        twentyPercentSelected.classList.add('selected');
+    }
+}
+
+function doTipPercent(percent: number) {
   
     const billAmt = userBill.valueAsNumber;
-    const tip = (multiply(billAmt, .10));
+    const tip = (multiply(billAmt, multiply(.01, percent)));
 
-    headerTip.innerText = "10%";
+    headerTip.innerText = percent.toString() + '%';
     billAmount.innerText = '$' + billAmt.toFixed(2);
-    tipPercentage.innerText = "10%";
+    tipPercentage.innerText = percent.toString() + '%';
     amountOfTip.innerText = '$' +tip.toFixed(2);
     totalPaid.innerText = '$' + (add( billAmt, tip)).toFixed(2);
-    tenPercentSelected.classList.add('selected');
-    fifteenPercentSelected.classList.remove('selected');
-    twentyPercentSelected.classList.remove('selected');
-
+    clearCalculator();
+    setButtons(percent);
 }
 
-function doFifteenPercent() {
+function setButtons (percent: number) {
 
-    const billAmt = userBill.valueAsNumber;
-    const tip = (multiply(billAmt, .15));
-    
-    headerTip.innerText = "15%";
-    billAmount.innerText = '$' + billAmt.toFixed(2);
-    tipPercentage.innerText = "15%";
-    amountOfTip.innerText = '$' +tip.toFixed(2);
-    totalPaid.innerText = '$' + (add( billAmt, tip)).toFixed(2);
-    tenPercentSelected.classList.remove('selected');
-    fifteenPercentSelected.classList.add('selected');
-    twentyPercentSelected.classList.remove('selected');
-}
+    if (percent === 10) {
 
-function doTwentyPercent() {
+        tenPercentSelected.classList.add('selected');
+        fifteenPercentSelected.classList.remove('selected');
+        twentyPercentSelected.classList.remove('selected');
+        localStorage.setItem('tipButton', '10');
+    }
 
-    const billAmt = userBill.valueAsNumber;
-    const tip = (multiply(billAmt, .20));
-    
-    headerTip.innerText = "20%";
-    billAmount.innerText = '$' + billAmt.toFixed(2);
-    tipPercentage.innerText = "20%";
-    amountOfTip.innerText = '$' +tip.toFixed(2);
-    totalPaid.innerText = '$' + (add( billAmt, tip)).toFixed(2);
-    tenPercentSelected.classList.remove('selected');
-    fifteenPercentSelected.classList.remove('selected');
-    twentyPercentSelected.classList.add('selected');
+    if (percent === 15) {
+
+        tenPercentSelected.classList.remove('selected');
+        fifteenPercentSelected.classList.add('selected');
+        twentyPercentSelected.classList.remove('selected');
+        localStorage.setItem('tipButton', '15');
+    }
+
+    if (percent === 20) {
+
+        tenPercentSelected.classList.remove('selected');
+        fifteenPercentSelected.classList.remove('selected');
+        twentyPercentSelected.classList.add('selected');
+        localStorage.setItem('tipButton', '20');
+    }
 }
 
 function clearCalculator() {
@@ -78,16 +90,12 @@ function clearCalculator() {
     amountOfTip.innerText = '';
     totalPaid.innerText = '';
 
-    tenPercentSelected.classList.remove('selected');
-    fifteenPercentSelected.classList.remove('selected');
-    twentyPercentSelected.classList.remove('selected');
     }
 }
 
-
-tenPercentButton.addEventListener('click', doTenPercent);
-fifteenPercentButton.addEventListener('click', doFifteenPercent);
-twentyPercentButton.addEventListener('click', doTwentyPercent);
-userBill.addEventListener('mousemove', clearCalculator);
+tenPercentButton.addEventListener('click', () => doTipPercent(10));
+fifteenPercentButton.addEventListener('click', () => doTipPercent(15));
+twentyPercentButton.addEventListener('click', () => doTipPercent(20));
+userBill.addEventListener('keyup', clearCalculator);
 
 }
