@@ -24,7 +24,7 @@ retrieveSavedButton();
 
 function retrieveSavedButton() {
 
-    let savedTipButton = localStorage.getItem('tipButton');
+    const savedTipButton = localStorage.getItem('tipButton');
     
     if (savedTipButton === '10') {
         tenPercentSelected.classList.add('selected');
@@ -41,15 +41,18 @@ function retrieveSavedButton() {
 
 function doTipPercent(percent: number) {
   
-    const billAmt = userBill.valueAsNumber;
-    const tip = (multiply(billAmt, multiply(.01, percent)));
+    if (userBill.value.length !== 0) {
 
-    headerTip.innerText = percent.toString() + '%';
-    billAmount.innerText = '$' + billAmt.toFixed(2);
-    tipPercentage.innerText = percent.toString() + '%';
-    amountOfTip.innerText = '$' +tip.toFixed(2);
-    totalPaid.innerText = '$' + (add( billAmt, tip)).toFixed(2);
-    clearCalculator();
+        const billAmt = userBill.valueAsNumber;
+        const tip = (multiply(billAmt, multiply(.01, percent)));
+
+        headerTip.innerText = `${percent}%`;
+        billAmount.innerText = `$${billAmt.toFixed(2)}`;
+        tipPercentage.innerText = `${percent}%`;
+        amountOfTip.innerText = `$${tip.toFixed(2)}`;
+        totalPaid.innerText = `$${(add( billAmt, tip)).toFixed(2)}`;
+    } 
+
     setButtons(percent);
 }
 
@@ -89,7 +92,6 @@ function clearCalculator() {
     tipPercentage.innerText = '';
     amountOfTip.innerText = '';
     totalPaid.innerText = '';
-
     }
 }
 
